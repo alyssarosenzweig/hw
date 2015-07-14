@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 /*
  * hw.js
  * my homework toolkit,
@@ -23,7 +25,8 @@ if(command == "add") {
 }
 
 function addFile(name, format) {
-    var filename = name + (format == "markdown" ? ".md" : format == "latex" ? ".tex" : "");
+    var filename = name.replace(/ /g, "_")
+                 + (format == "markdown" ? ".md" : format == "latex" ? ".tex" : "");
 
     var defaultText = config.name + "\n" +
                       config.getDate() + "\n";
@@ -31,6 +34,6 @@ function addFile(name, format) {
     // TODO: latex header as well
 
     fs.writeFile(filename, defaultText, function() {
-        require("child_process").exec("vim "+filename); // launch the only editor here
+        require("child_process").spawn("vim", [filename], {stdio: "inherit"}); // launch the only editor here
     });
 }
