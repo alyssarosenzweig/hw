@@ -49,12 +49,16 @@ function print(file) {
         if(err) throw err;
 
         // pass filter
+
         data = data.toString().replace(/\-\>.+?(?=\-\>)\-\>/g, 
                 function(_, a) {
                     return "<span class='md-right-align'>" + _.slice("-> ".length, -(" ->".length)) + "</span>";
                 });
 
-        var html = marked(data);
+        data = marked(data);
+
+        var html = fs.readFileSync("template.html").toString()
+                    .replace("%%%CONTENTHERE%%%", data);
 
         // open a temporary web server
         http.createServer(function(req, res) {
@@ -64,6 +68,7 @@ function print(file) {
             process.exit(0);
         }).listen(8080);
 
-        console.log("http://localhost:8080");
+        // open in the users web browser
+        require("child_process").exec(config.browser+ " http://localhost:8080");
     });
 };
