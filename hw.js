@@ -48,7 +48,7 @@ function print(file) {
     fs.readFile(file, function(err, data) {
         if(err) throw err;
 
-        data = marked(data);
+        data = marked(data.toString());
 
         var html = fs.readFileSync("template.html").toString()
                     .replace("%%%CONTENTHERE%%%", data);
