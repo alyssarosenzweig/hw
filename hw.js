@@ -48,13 +48,6 @@ function print(file) {
     fs.readFile(file, function(err, data) {
         if(err) throw err;
 
-        // pass filter
-
-        data = data.toString().replace(/\-\>.+?(?=\-\>)\-\>/g, 
-                function(_, a) {
-                    return "<span class='md-right-align'>" + _.slice("-> ".length, -(" ->".length)) + "</span>";
-                });
-
         data = marked(data);
 
         var html = fs.readFileSync("template.html").toString()
