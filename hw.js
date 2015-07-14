@@ -8,6 +8,7 @@
  */
 
 var fs = require("fs");
+var http = require("http");
 var argv = require("minimist")(process.argv.slice(2));
 
 var command = argv._[0];
@@ -48,9 +49,21 @@ function print(file) {
         if(err) throw err;
 
         // pass filter
-        data = data.toString().replace(/\-\>.+?(?=\-\>)\-\>/g, "<span class='md-right-align'>\\$1</span>");
+        data = data.toString().replace(/\-\>.+?(?=\-\>)\-\>/g, 
+                function(_, a) {
+                    return "<span class='md-right-align'>" + _.slice("-> ".length, -(" ->".length)) + "</span>";
+                });
 
         var html = marked(data);
-        console.log(html);
+
+        // open a temporary web server
+        http.createServer(function(req, res) {
+            res.writeHead(200, {"Content-Type":"text/html"});
+            res.end(html);
+
+            process.exit(0);
+        }).listen(8080);
+
+        console.log("http://localhost:8080");
     });
 };
