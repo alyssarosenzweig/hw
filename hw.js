@@ -39,12 +39,12 @@ function init() {
 
     // copy the template file and my config file
     
-    fs.readFile("template.html", function(err, data) {
+    fs.readFile(__dirname + "/template.html", function(err, data) {
         if(err) throw err;
         fs.writeFile("template.html", data);
     });
     
-    fs.readFile("config.js", function(err, data) {
+    fs.readFile(__dirname + "/config.js", function(err, data) {
         if(err) throw err;
         fs.writeFile("node_modules/config.js", data);
     });
