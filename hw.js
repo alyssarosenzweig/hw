@@ -27,8 +27,14 @@ if(command == "add") {
     addFile(argv._[argv._.length-1], argv["class"] || "Class 8", argv.format || "markdown"); 
 } else if(command == "print") {
     print(argv._[argv._.length-1]);
+} else if(command == "init") {
+    init();
 } else {
     console.log("Unsupported command " + command);
+}
+
+function init() {
+    exec("git init .");
 }
 
 function addFile(name, cls, format) {
