@@ -34,7 +34,7 @@ if(command == "add") {
 }
 
 function init() {
-    exec("git init .");
+    exec("git init . && echo '{}' > status.json");
 }
 
 function addFile(name, cls, format) {
@@ -52,6 +52,17 @@ function addFile(name, cls, format) {
         var editor = spawn("vim", [filename], {stdio: "inherit"}); // launch the only editor here
         
         editor.on("exit", function() {
+            // we should update the status file
+            
+            fs.readFile("./status.json", function(err, data) {
+                if(err) throw err;
+                var status = JSON.parse(data);
+                
+                status.latestHW = filename;
+
+                fs.writeFile("./status.json", JSON.stringify(status));
+            });
+
             // now we need to commit to git
             // if desired
            
@@ -62,7 +73,22 @@ function addFile(name, cls, format) {
     });
 }
 
-function print(file) {
+function getLatest(callback) {
+    fs.readFile("./status.json", function(err, data) {
+        if(err) throw err;
+
+        callback(JSON.parse(data).latestHW);
+    });
+}
+
+function print(file, latest) {
+    if(latest) {
+        // instead of using a filename, find the most recent homework assignment
+        return getLatest(function(f) {
+            print(f);
+        });
+    }
+
     fs.readFile(file, function(err, data) {
         if(err) throw err;
 
