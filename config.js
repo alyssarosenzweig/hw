@@ -4,5 +4,6 @@ module.exports = {
         var d = new Date();
         return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
     },
-    browser: "firefox"
+    browser: "firefox",
+    useGit: "true"
 }

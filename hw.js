@@ -15,6 +15,9 @@ var command = argv._[0];
 var config = require("./config.js");
 var marked = require("marked");
 
+var spawn = require("child_process").spawn;
+var exec = require("child_process").exec;
+
 if(!command) {
     console.log("Please provide a command to hw");
     process.exit(0);
@@ -31,7 +34,7 @@ if(command == "add") {
 function addFile(name, cls, format) {
     var filename = name.replace(/ /g, "_")
                  + (format == "markdown" ? ".md" : format == "latex" ? ".tex" : "");
-
+    
     var defaultText = config.name + "\n\n" +
                       config.getDate() + "\n\n" +
                       cls + "\n\n" +
@@ -40,7 +43,16 @@ function addFile(name, cls, format) {
     // TODO: latex header as well
 
     fs.writeFile(filename, defaultText, function() {
-        require("child_process").spawn("vim", [filename], {stdio: "inherit"}); // launch the only editor here
+        var editor = spawn("vim", [filename], {stdio: "inherit"}); // launch the only editor here
+        
+        editor.on("exit", function() {
+            // now we need to commit to git
+            // if desired
+           
+            if(!config.useGit) return;
+
+            exec("git add " + filename + " && git commit -m \"" + name.replace(/"/g, "") + "\"");
+        });
     });
 }
 
@@ -62,6 +74,6 @@ function print(file) {
         }).listen(8080);
 
         // open in the users web browser
-        require("child_process").exec(config.browser+ " http://localhost:8080");
+        exec(config.browser+ " http://localhost:8080");
     });
 };
