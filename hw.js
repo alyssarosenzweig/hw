@@ -24,7 +24,7 @@ if(!command) {
 }
 
 if(command == "add") {
-    addFile(argv._[argv._.length-1], argv["class"] || "Class 8", argv.format || "markdown"); 
+    addFile(argv._[argv._.length-1], argv["class"] || argv.c || "Class 8", argv.format || "markdown"); 
 } else if(command == "print") {
     print(argv._[argv._.length-1], argv.latest !== undefined);
 } else if(command == "init") {
