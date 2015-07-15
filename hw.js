@@ -26,7 +26,7 @@ if(!command) {
 if(command == "add") {
     addFile(argv._[argv._.length-1], argv["class"] || "Class 8", argv.format || "markdown"); 
 } else if(command == "print") {
-    print(argv._[argv._.length-1], argv.latest);
+    print(argv._[argv._.length-1], argv.latest !== undefined);
 } else if(command == "init") {
     init();
 } else {
@@ -34,7 +34,20 @@ if(command == "add") {
 }
 
 function init() {
-    exec("git init . && echo '{}' > status.json");
+    // initialize git and the status file
+    exec("git init . && echo '{}' > status.json && mkdir node_modules");
+
+    // copy the template file and my config file
+    
+    fs.readFile("template.html", function(err, data) {
+        if(err) throw err;
+        fs.writeFile("template.html", data);
+    });
+    
+    fs.readFile("config.js", function(err, data) {
+        if(err) throw err;
+        fs.writeFile("node_modules/config.js", data);
+    });
 }
 
 function addFile(name, cls, format) {
@@ -85,6 +98,7 @@ function print(file, latest) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
         return getLatest(function(f) {
+            console.log("Printing "+f);
             print(f);
         });
     }
