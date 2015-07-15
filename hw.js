@@ -53,11 +53,28 @@ function init() {
 function addFile(name, cls, format) {
     var filename = name.replace(/ /g, "_")
                  + (format == "markdown" ? ".md" : format == "latex" ? ".tex" : "");
-    
-    var defaultText = config.name + "\n\n" +
-                      config.getDate() + "\n\n" +
-                      cls + "\n\n" +
-                      name + "\n\n" + "\n";
+   
+    var defaultText = "";
+
+   if(format == "markdown") {
+      // table header
+      
+      var slots = [config.name,
+                   config.getDate(),
+                   cls,
+                   name];
+
+      var maxLen = [0].concat(slots).reduce(function(a, b) {
+          return Math.max(a, b.length);
+      }) + 2;
+
+      defaultText =  "|" + (Array(maxLen).join(" ")) + "|" + "\n"
+                    + "-" + (Array(maxLen).join("-")) + "|" + "\n";
+
+      slots.forEach(function(slot) {
+          defaultText += " " + slot + (Array(maxLen - slot.length).join(" ")) + "|" + "\n";
+      });
+   }
 
     // TODO: latex header as well
 
