@@ -19,7 +19,7 @@ var spawn = require("child_process").spawn;
 var exec = require("child_process").exec;
 
 if(!command) {
-    console.log("Please provide a command to hw");
+    usage();
     process.exit(0);
 }
 
@@ -37,7 +37,7 @@ if(command == "add") {
 } else if(command == "init") {
     init();
 } else {
-    console.log("Unsupported command " + command);
+    usage();
 }
 
 function init() {
@@ -150,3 +150,19 @@ function print(file, latest) {
         exec(config.browser+ " http://localhost:8080");
     });
 };
+
+function usage() {
+    [
+        "usage: hw command [options]",
+        "",
+        "list of commands:",
+        "add - creates a new file in the repository",
+        "   hw add [--class=classname] [--format=markdown] Assignment_Title",
+        "note - quick notetaking command",
+        "   hw note [--class=classname] Subject",
+        "print - prints an assignment. If --latest is used, filename is ignored.",
+        "   hw print [--latest] filename",
+        "init - initializes the repositoru for hw tracking",
+        "   hw init"
+    ].forEach(function(a) { console.log(a) });
+}
