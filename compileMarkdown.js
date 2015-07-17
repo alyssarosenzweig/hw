@@ -6,6 +6,7 @@
  * and embeds it in a template
  */
 
+var fs = require("fs");
 var marked = require("marked");
 
 module.exports = function(file, callback) {

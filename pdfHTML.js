@@ -1,4 +1,4 @@
-/* printHTML.js
+/* pdfHTML.js
  * part of `hw` by Alyssa Rosenzweig,
  * under the GPLv2 license.
  * inputs an HTML document,
@@ -7,20 +7,12 @@
  * this is dependent on phantomjs!
  */
 
-var childProcess = require("child_process");
+var pdf = require("html-pdf");
 
-try {
-    var phantomjs = require("phantomjs");
-} catch(e) {
-    console.log("Warning: phantomjs not available");
-}
-
-module.exports = function(html) {
-    childProcess.execFile(
-            phantomjs.path,
-            [__dirname + "/pdf.js"],
-    function(err, stdout, stderr) {
-
+module.exports = function(html, output) {
+    pdf.create(html, {
+        format: 'Letter'
+    }).toFile(output, function(err, res) {
+        if(err) throw err;
     });
 }
-

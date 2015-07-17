@@ -133,6 +133,11 @@ function inferFormat(filename) {
            null;
 }
 
+function chopExtension(filename) {
+    var parts = filename.split(".");
+    return parts.slice(0, -1);
+}
+
 function print(file, latest, pdf) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
@@ -145,7 +150,11 @@ function print(file, latest, pdf) {
     var format = inferFormat(file);
     
     if(format == "markdown") {
-        compileMarkdown(file, pdf ? pdfHTML : printHTML);
+        compileMarkdown(
+                file,
+                pdf ? pdfHTML : printHTML,
+                pdf ? chopExtension(filename) + ".pdf" : ""
+           );
     } else {
         console.error("Cannot print format "+format);
     }
