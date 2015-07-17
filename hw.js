@@ -127,10 +127,10 @@ function compileMarkdown(file, callback) {
 
         data = marked(data.toString());
 
-        fs.readFile("template.html", function(err, data) {
+        fs.readFile("template.html", function(err, template) {
             if(err) throw err;
             
-            var html = data.toString()
+            var html = template.toString()
                       .replace("%%%CONTENTHERE%%%", data);
             
             callback(html);
