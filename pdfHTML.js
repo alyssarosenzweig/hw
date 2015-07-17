@@ -8,10 +8,18 @@
  */
 
 var childProcess = require("child_process");
-var phantomjs = require("phantomjs");
+
+try {
+    var phantomjs = require("phantomjs");
+} catch(e) {
+    console.log("Warning: phantomjs not available");
+}
 
 module.exports = function(html) {
-    childProcess.execFile(phantomjs.path, [__dirname + "/pdf.js", function(err, stdout, stderr) {
+    childProcess.execFile(
+            phantomjs.path,
+            [__dirname + "/pdf.js"],
+    function(err, stdout, stderr) {
 
     });
 }
