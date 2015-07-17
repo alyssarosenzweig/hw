@@ -13,7 +13,9 @@ var argv = require("minimist")(process.argv.slice(2));
 
 var command = argv._[0];
 var config = require(__dirname + "/config.js");
-var marked = require("marked");
+
+var compileMarkdown = require("./compileMarkdown.js");
+var printHTML = require("./printHTML.js");
 
 var spawn = require("child_process").spawn;
 var exec = require("child_process").exec;
@@ -121,24 +123,6 @@ function getLatest(callback) {
     });
 }
 
-function compileMarkdown(file, callback) {
-    fs.readFile(file, function(err, data) {
-        if(err) throw err;
-
-        data = marked(data.toString());
-
-        fs.readFile("template.html", function(err, template) {
-            if(err) throw err;
-            
-            var html = template.toString()
-                      .replace("%%%CONTENTHERE%%%", data);
-            
-            callback(html);
-        });
-
-    });
-}
-
 function inferFormat(filename) {
     var parts = filename.split(".");
     var ext = parts[parts.length - 1];
@@ -160,18 +144,7 @@ function print(file, latest) {
     var format = inferFormat(file);
     
     if(format == "markdown") {
-        compileMarkdown(file, function(html) {
-            // open a temporary web server
-            http.createServer(function(req, res) {
-                res.writeHead(200, {"Content-Type":"text/html"});
-                res.end(html);
-
-                process.exit(0);
-            }).listen(8080);
-
-            // open in the users web browser
-            exec(config.browser+ " http://localhost:8080");
-        });
+        compileMarkdown(file, printHTML);
     } else {
         console.error("Cannot print format "+format);
     }
