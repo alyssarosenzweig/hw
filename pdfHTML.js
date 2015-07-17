@@ -10,8 +10,11 @@
 var pdf = require("html-pdf");
 
 module.exports = function(html, output) {
+    console.log("-o "+output);
     pdf.create(html, {
-        format: 'Letter'
+        format: 'Letter',
+        phantomPath: "/usr/bin/phantomjs",
+        border: "1in"
     }).toFile(output, function(err, res) {
         if(err) throw err;
     });

@@ -13,7 +13,7 @@
   "dependencies": {
       "marked": "0.3.3",
       "minimist": "1.1.1",
-      "node-html-pdf": "1.2.1"
+      "html-pdf": "1.2.1"
   },
   "bin": {
       "hw": "hw.js"

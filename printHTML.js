@@ -6,6 +6,8 @@
  * this is used for printing markdown
  */
 
+var http = require("http");
+
 module.exports = function(html) {
     // open a temporary web server
     http.createServer(function(req, res) {

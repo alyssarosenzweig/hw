@@ -135,7 +135,7 @@ function inferFormat(filename) {
 
 function chopExtension(filename) {
     var parts = filename.split(".");
-    return parts.slice(0, -1);
+    return parts.slice(0, -1)[0];
 }
 
 function print(file, latest, pdf) {
@@ -153,7 +153,7 @@ function print(file, latest, pdf) {
         compileMarkdown(
                 file,
                 pdf ? pdfHTML : printHTML,
-                pdf ? chopExtension(filename) + ".pdf" : ""
+                pdf ? chopExtension(file) + ".pdf" : ""
            );
     } else {
         console.error("Cannot print format "+format);
