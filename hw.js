@@ -139,7 +139,16 @@ function compileMarkdown(file, callback) {
     });
 }
 
-function print(file, format, latest) {
+function inferFormat(filename) {
+    var parts = filename.split(".");
+    var ext = parts[parts.length - 1];
+
+    return (ext == "md" || ext == "markdown") ? "markdown" :
+           (ext == "tex") ? "latex" :
+           null;
+}
+
+function print(file, latest) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
         return getLatest(function(f) {
@@ -147,6 +156,8 @@ function print(file, format, latest) {
             print(f);
         });
     }
+
+    var format = inferFormat(file);
     
     if(format == "markdown") {
         compileMarkdown(file, function(html) {
