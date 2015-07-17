@@ -16,6 +16,7 @@ var config = require(__dirname + "/config.js");
 
 var compileMarkdown = require("./compileMarkdown.js");
 var printHTML = require("./printHTML.js");
+var pdfHTML = require("./pdfHTML.js");
 
 var spawn = require("child_process").spawn;
 var exec = require("child_process").exec;
@@ -35,7 +36,7 @@ if(command == "add") {
     
     addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", "markdown");   
 } else if(command == "print") {
-    print(argv._[argv._.length-1], argv.latest !== undefined);
+    print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
 } else if(command == "init") {
     init();
 } else {
@@ -132,24 +133,23 @@ function inferFormat(filename) {
            null;
 }
 
-function print(file, latest) {
+function print(file, latest, pdf) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
         return getLatest(function(f) {
             console.log("Printing "+f);
-            print(f);
+            print(f, false, pdf);
         });
     }
 
     var format = inferFormat(file);
     
     if(format == "markdown") {
-        compileMarkdown(file, printHTML);
+        compileMarkdown(file, pdf ? pdfHTML : printHTML);
     } else {
         console.error("Cannot print format "+format);
     }
 }
-
 
 function usage() {
     [
@@ -161,7 +161,7 @@ function usage() {
         "note - quick notetaking command",
         "   hw note [--class=classname] Subject",
         "print - prints an assignment. If --latest is used, filename is ignored.",
-        "   hw print [--latest] filename",
+        "   hw print [--pdf] [--latest] filename",
         "init - initializes the repositoru for hw tracking",
         "   hw init"
     ].forEach(function(a) { console.log(a) });
