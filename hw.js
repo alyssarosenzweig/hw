@@ -121,7 +121,25 @@ function getLatest(callback) {
     });
 }
 
-function print(file, latest) {
+function compileMarkdown(file, callback) {
+    fs.readFile(file, function(err, data) {
+        if(err) throw err;
+
+        data = marked(data.toString());
+
+        fs.readFile("template.html", function(err, data) {
+            if(err) throw err;
+            
+            var html = data.toString()
+                      .replace("%%%CONTENTHERE%%%", data);
+            
+            callback(html);
+        });
+
+    });
+}
+
+function print(file, format, latest) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
         return getLatest(function(f) {
@@ -129,27 +147,25 @@ function print(file, latest) {
             print(f);
         });
     }
+    
+    if(format == "markdown") {
+        compileMarkdown(file, function(html) {
+            // open a temporary web server
+            http.createServer(function(req, res) {
+                res.writeHead(200, {"Content-Type":"text/html"});
+                res.end(html);
 
-    fs.readFile(file, function(err, data) {
-        if(err) throw err;
+                process.exit(0);
+            }).listen(8080);
 
-        data = marked(data.toString());
+            // open in the users web browser
+            exec(config.browser+ " http://localhost:8080");
+        });
+    } else {
+        console.error("Cannot print format "+format);
+    }
+}
 
-        var html = fs.readFileSync("template.html").toString()
-                    .replace("%%%CONTENTHERE%%%", data);
-
-        // open a temporary web server
-        http.createServer(function(req, res) {
-            res.writeHead(200, {"Content-Type":"text/html"});
-            res.end(html);
-
-            process.exit(0);
-        }).listen(8080);
-
-        // open in the users web browser
-        exec(config.browser+ " http://localhost:8080");
-    });
-};
 
 function usage() {
     [
