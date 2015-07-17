@@ -12,7 +12,7 @@ var http = require("http");
 var argv = require("minimist")(process.argv.slice(2));
 
 var command = argv._[0];
-var config = require("./config.js");
+var config = require("config.js");
 var marked = require("marked");
 
 var spawn = require("child_process").spawn;
