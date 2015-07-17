@@ -25,6 +25,13 @@ if(!command) {
 
 if(command == "add") {
     addFile(argv._[argv._.length-1], argv["class"] || argv.c || "Class 8", argv.format || "markdown"); 
+} else if(comamnd == "note") {
+    // note is a shorthand for adding a new file,
+    // but is specifically for small assignments that need to *just work*
+    // they're not meant to be printed or anything,
+    // and are generally for using your computer as a 'dumb termina'
+    
+    addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", "markdown");   
 } else if(command == "print") {
     print(argv._[argv._.length-1], argv.latest !== undefined);
 } else if(command == "init") {
@@ -63,6 +70,9 @@ function addFile(name, cls, format) {
                    config.getDate(),
                    cls,
                    name];
+
+      // class name some times may be omitted
+      if(!slots[2]) slots.splice(2, 1);
 
       var maxLen = [0].concat(slots).reduce(function(a, b) {
           return Math.max(a, b.length);
