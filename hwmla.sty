@@ -1,0 +1,81 @@
+% \NeedsTexFormat{Latex2e}
+\ProvidesPackage{hwmla}
+
+\RequirePackage[a4paper,
+		top=1in,
+		bottom=1in,
+		left=1in,
+		right=1in]{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{setspace}
+
+% initialization parameters for the hw header (slightly differs from MLA)
+
+\newcommand{\authorname}{Anonymous}
+\newcommand{\hwauthor}[1]{ \renewcommand{\authorname}{#1} }
+
+\newcommand{\thedate}{No date}
+\newcommand{\hwdate}[1]{ \renewcommand{\thedate}{#1} }
+
+\newcommand{\classname}{Classless}
+\newcommand{\hwclass}[1]{ \renewcommand{\classname}{#1} }
+
+\newcommand{\projectname}{Untitled}
+\newcommand{\hwproject}[1]{ \renewcommand{\projectname}{#1} }
+
+\newif\iftitle
+\newcommand{\projectitle}{Untitled}
+\newcommand{\hwtitle}[1]{
+	\renewcommand{\projectitle}{#1}
+	\titletrue
+}
+
+% creates the running header
+\newcommand{\hwlastname}[1]{
+	\markright{ \hfill \emph{#1} }
+	\pagestyle{myheadings}
+}
+
+% creates first header
+\newcommand{\makeheader}{
+	% creates the first four lines
+	% spacing differs here from rest of document
+
+	% \onespacing
+	\noindent
+	\authorname
+	\newline
+	\thedate
+	\newline
+	\classname
+	\newline
+	\projectname
+	\doublespacing
+
+	% _centered_ project title
+	\iftitle
+		\begin{center}
+			\projectitle
+		\end{center}
+	\else
+		\hfill
+	\fi
+}
+
+% works cited is left largely to the author for formatting
+% nevertheless some stubs are given here for assistance
+
+\newcommand{\makeworkscited} {
+	\newpage
+	\begin{center}
+	Works Cited
+	\end{center}
+}
+
+\newcommand{\hwcite}[1]{
+	\hangindent=\parindent
+	\noindent
+	#1
+}
+
+\endinput
