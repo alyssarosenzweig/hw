@@ -86,8 +86,23 @@ function markdownDefault(name, cls) {
 }
 
 function latexDefault(name, cls) {
-    // TODO: implement something here
-    return "";
+    return
+        "\\documentclass[12pt]{article}\n" +
+        "\\usepackage{hwmla}\n" +
+        "\n" +
+        "\\hwauthor{" + config.name + "}\n" +
+        "\\hwdate{" + config.getDate() + "}\n" +
+        "\\hwclass{" + cls + "}\n" +
+        "\\hwproject{" + name + "}\n" +
+        "\\hwlastname{" + getLastName() + "}\n" +
+        "\\hwtitle{" + name + "}\n" +
+        "\n" +
+        "\\begin{document}\n" +
+        "\\makeheader\n" +
+        "\n" +
+        "\\makeworkscited\n" +
+        "\n" +
+        "\\end{document}\n";
 }
 
 function addFile(name, cls, format) {
