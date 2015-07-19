@@ -7,10 +7,9 @@
  * this is dependent on phantomjs!
  */
 
-var pdf = require("html-pdf");
-
 module.exports = function(html, output) {
-    console.log("-o "+output);
+    var pdf = require("html-pdf");
+
     pdf.create(html, {
         format: 'Letter',
         phantomPath: "/usr/bin/phantomjs",
