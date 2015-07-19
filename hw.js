@@ -110,12 +110,22 @@ function latexDefault(name, cls) {
         "\\end{document}\n";
 }
 
+function uPresentDefault(name, cls) {
+    return name + "\n" +
+           "\n" +
+           "theme: Modern Dark\n" +
+           "\n";
+}
+
 function addFile(name, cls, format) {
     var filename = name.replace(/ /g, "_")
-                 + (format == "markdown" ? ".md" : format == "latex" ? ".tex" : "");
+                 + (format == "markdown" ? ".md" :
+                    format == "latex" ? ".tex" :
+                    format == "uPresent" ? ".up" : "");
    
     var defaultText = format == "markdown" ? markdownDefault(name, cls) :
                       format == "latex" ? latexDefault(name, cls) :
+                      format == "uPresent" ? uPresentDefault(name, cls) :
                       "";
 
     fs.writeFile(filename, defaultText, function() {
