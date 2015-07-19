@@ -85,8 +85,13 @@ function markdownDefault(name, cls) {
     return defaultText;
 }
 
+function getLastName() {
+    var parts = config.name.split(" ");
+    return parts[parts.length - 1];
+}
+
 function latexDefault(name, cls) {
-    return
+    return "" +
         "\\documentclass[12pt]{article}\n" +
         "\\usepackage{hwmla}\n" +
         "\n" +
