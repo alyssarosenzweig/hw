@@ -160,6 +160,10 @@ function chopExtension(filename) {
     return parts.slice(0, -1)[0];
 }
 
+function printLatex(file) {
+    exec("latex " + file + " && dvipdf " + (chopExtension(file) + ".dvi"));
+}
+
 function print(file, latest, pdf) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
@@ -177,6 +181,8 @@ function print(file, latest, pdf) {
                 pdf ? pdfHTML : printHTML,
                 pdf ? chopExtension(file) + ".pdf" : ""
            );
+    } else if(format == "latex") {
+        printLatex(file);
     } else {
         console.error("Cannot print format "+format);
     }
