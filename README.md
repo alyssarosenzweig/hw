@@ -5,6 +5,9 @@ hw is a toolkit for managing your homework as a hacker, in the true sense of the
 
 hw is how I'm slowly replacing monoliths like Google Drive and LibreOffice with lightweight hackable tools like git and vim. Join me on my journey :)
 
+# Usage
+Below is a listing of a few common tasks you might use hw for.
+
 ## Install
 
     $ git clone https://github.com/bobbybee/hw
