@@ -5,5 +5,7 @@ module.exports = {
         return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
     },
     browser: "firefox",
-    useGit: "true"
+    useGit: true,
+    defaultFormat: "markdown",
+    noteFormat: "markdown"
 }
