@@ -1,5 +1,9 @@
 # hw
-A homework toolkit for hackers 
+_A homework toolkit for hackers_
+
+hw is a toolkit for managing your homework as a hacker, in the true sense of the word: someone who wants total control over every aspect of their life for whatever reason, and is willing to write plenty of code to do this. hw follows this philosophy. It's a teensy program that's designed to integrate well out of the box with open technologies like git, markdown, and LaTeX. And for when you need a new feature supported, the codebase is easy to hack on.
+
+hw is how I'm slowly replacing monoliths like Google Drive and LibreOffice with lightweight hackable tools like git and vim. Join me on my journey :)
 
 ## Install
 
