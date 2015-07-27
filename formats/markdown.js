@@ -29,7 +29,11 @@ var marked = require("marked");
 var printHTML = require("../printHTML.js");
 var pdfHTML = require("../pdfHTML.js");
 
+var config = require(__dirname + "/config.js");
+
 module.exports.extension = "md";
+
+
 
 module.exports.defaultText = function(name, cls) {
     // table header

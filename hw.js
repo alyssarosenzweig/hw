@@ -87,10 +87,11 @@ function getDescriptor(format) {
 }
 
 function addFile(name, cls, format) {
+    var formatDescriptor = getDescriptor(format); 
+    
     var filename = name.replace(/ /g, "_")
                  + formatDescriptor.extension;
    
-    var formatDescriptor = getDescriptor(format); 
     var defaultText = formatDescriptor.defaultText(name, cls);
 
     fs.writeFile(filename, defaultText, function() {
