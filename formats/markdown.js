@@ -29,7 +29,7 @@ var marked = require("marked");
 var printHTML = require("../printHTML.js");
 var pdfHTML = require("../pdfHTML.js");
 
-var config = require(__dirname + "/config.js");
+var config = require(process.cwd() + "/config.js");
 
 module.exports.extension = "md";
 

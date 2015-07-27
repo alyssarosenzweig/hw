@@ -24,7 +24,7 @@
  */
 
 var exec = require("child_process").exec;
-var config = require(__dirname + "/config.js");
+var config = require(process.cwd() + "/config.js");
 
 module.exports.extension = "tex";
 
