@@ -32,10 +32,8 @@ var argv = require("minimist")(process.argv.slice(2));
 var command = argv._[0];
 var config = require(__dirname + "/config.js");
 
-var compileUPresent = require("./compileUPresent.js");
-
-var spawn = require("child_process").spawn;
 var exec = require("child_process").exec;
+var spawn = require("child_process").spawn;
 
 if(!command) {
     usage();
