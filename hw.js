@@ -35,6 +35,8 @@ var config = require(process.cwd() + "/config.js");
 var exec = require("child_process").exec;
 var spawn = require("child_process").spawn;
 
+var formats = require("./formats/index.js");
+
 if(!command) {
     usage();
     process.exit(0);
@@ -130,10 +132,7 @@ function inferFormat(filename) {
     var parts = filename.split(".");
     var ext = parts[parts.length - 1];
 
-    return (ext == "md" || ext == "markdown") ? "markdown" :
-           (ext == "tex") ? "latex" :
-           (ext == "up") ? "uPresent" :
-           null;
+    return formats[ext];
 }
 
 function print(file, latest, pdf) {
