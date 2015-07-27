@@ -90,7 +90,7 @@ function addFile(name, cls, format) {
     var formatDescriptor = getDescriptor(format); 
     
     var filename = name.replace(/ /g, "_")
-                 + formatDescriptor.extension;
+                 + "." + formatDescriptor.extension;
    
     var defaultText = formatDescriptor.defaultText(name, cls);
 
