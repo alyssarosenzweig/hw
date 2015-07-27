@@ -51,7 +51,7 @@ if(command == "add") {
     // note is a shorthand for adding a new file,
     // but is specifically for small assignments that need to *just work*
     // they're not meant to be printed or anything,
-    // and are generally for using your computer as a 'dumb termina'
+    // and are generally for using your computer as a 'dumb terminal' in class
     
     addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", "markdown");   
 } else if(command == "print") {
@@ -219,7 +219,7 @@ function print(file, latest, pdf) {
     } else if(format == "latex") {
         printLatex(file);
     } else if(format == "upresent") {
-       // printing a uPresent file doesn't make a whole lot fo sense,
+       // printing a uPresent file doesn't make a whole lot of sense,
        // but it might be useful at some point,
        // so it's supported, just for the sake of completeness
        
@@ -244,7 +244,7 @@ function usage() {
         "   hw note [--class=classname] Subject",
         "print - prints an assignment. If --latest is used, filename is ignored.",
         "   hw print [--pdf] [--latest] filename",
-        "init - initializes the repositoru for hw tracking",
+        "init - initializes a repository for hw tracking",
         "   hw init"
     ].forEach(function(a) { console.log(a) });
 }
