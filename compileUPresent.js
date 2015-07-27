@@ -25,16 +25,3 @@
  * compileUPresent.js compiles uPresent to HTML using `up`
  */
 
-var fs = require("fs");
-var child_process = require("child_process");
-
-module.exports = function(file, callback, carg) {
-    fs.readFile(file, function(err, data) {
-        if(err) throw err;
-
-        child_process.exec("up -m "+file, function(err, stdout, stderr) {
-            callback(stdout, carg);
-        });
-    });
-}
-
