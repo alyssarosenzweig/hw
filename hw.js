@@ -79,73 +79,19 @@ function init() {
     });
 }
 
-function markdownDefault(name, cls) {
-    // table header
-
-    var slots = [config.name,
-               config.getDate(),
-               cls,
-               name];
-
-    // class name some times may be omitted
-    if(!slots[2]) slots.splice(2, 1);
-
-    var maxLen = [0].concat(slots).reduce(function(a, b) {
-      return Math.max(a, b.length);
-    }) + 2;
-
-    defaultText =  "|" + (Array(maxLen).join(" ")) + "|" + "\n"
-                + "-" + (Array(maxLen).join("-")) + "|" + "\n";
-
-    slots.forEach(function(slot) {
-      defaultText += " " + slot + (Array(maxLen - slot.length).join(" ")) + "|" + "\n";
-    });
-
-    return defaultText;
-}
-
-function getLastName() {
-    var parts = config.name.split(" ");
-    return parts[parts.length - 1];
-}
-
-function latexDefault(name, cls) {
-    return "" +
-        "\\documentclass[12pt]{article}\n" +
-        "\\usepackage{hwmla}\n" +
-        "\n" +
-        "\\hwauthor{" + config.name + "}\n" +
-        "\\hwdate{" + config.getDate() + "}\n" +
-        "\\hwclass{" + cls + "}\n" +
-        "\\hwproject{" + name + "}\n" +
-        "\\hwlastname{" + getLastName() + "}\n" +
-        "\\hwtitle{" + name + "}\n" +
-        "\n" +
-        "\\begin{document}\n" +
-        "\\makeheader\n" +
-        "\n" +
-        "\\makeworkscited\n" +
-        "\n" +
-        "\\end{document}\n";
-}
-
-function uPresentDefault(name, cls) {
-    return name + "\n" +
-           "\n" +
-           "theme: Modern Dark\n" +
-           "\n";
-}
-
 function addFile(name, cls, format) {
+    var formatDescriptor = require("./formats/"+format); // NOTE: this is not a secure call,
+                                                        // nor is it intended to be
+                                                        // hw expects its input to be trusted
+    
+    if(!formatDescriptor) {
+        throw new Error();
+    }
+
     var filename = name.replace(/ /g, "_")
-                 + (format == "markdown" ? ".md" :
-                    format == "latex" ? ".tex" :
-                    format == "uPresent" ? ".up" : "");
-   
-    var defaultText = format == "markdown" ? markdownDefault(name, cls) :
-                      format == "latex" ? latexDefault(name, cls) :
-                      format == "uPresent" ? uPresentDefault(name, cls) :
-                      "";
+                 + formatDescriptor.extension;
+    
+    var defaultText = formatDescriptor.defaultText(name, cls);
 
     fs.writeFile(filename, defaultText, function() {
         var editor = spawn("vim", [filename], {stdio: "inherit"}); // launch the only editor here
