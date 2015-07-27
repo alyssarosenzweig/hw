@@ -33,7 +33,7 @@ function getLastName() {
     return parts[parts.length - 1];
 }
 
-module.exports.defaultValue = function(name, cls) {
+module.exports.defaultText = function(name, cls) {
     return "" +
         "\\documentclass[12pt]{article}\n" +
         "\\usepackage{hwmla}\n" +
@@ -51,6 +51,11 @@ module.exports.defaultValue = function(name, cls) {
         "\\makeworkscited\n" +
         "\n" +
         "\\end{document}\n";
+}
+
+function chopExtension(filename) {
+    var parts = filename.split(".");
+    return parts.slice(0, -1)[0];
 }
 
 module.exports.print = function(file) {

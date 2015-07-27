@@ -136,11 +136,6 @@ function inferFormat(filename) {
            null;
 }
 
-function chopExtension(filename) {
-    var parts = filename.split(".");
-    return parts.slice(0, -1)[0];
-}
-
 function print(file, latest, pdf) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
