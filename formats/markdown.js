@@ -28,12 +28,11 @@ var marked = require("marked");
 
 var printHTML = require("../printHTML.js");
 var pdfHTML = require("../pdfHTML.js");
+var chopExtension = require("../chopExtension.js");
 
 var config = require(process.cwd() + "/config.js");
 
 module.exports.extension = "md";
-
-
 
 module.exports.defaultText = function(name, cls) {
     // table header

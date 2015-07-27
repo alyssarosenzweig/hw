@@ -132,7 +132,7 @@ function inferFormat(filename) {
 
     return (ext == "md" || ext == "markdown") ? "markdown" :
            (ext == "tex") ? "latex" :
-           (ext == "up") ? "upresent" :
+           (ext == "up") ? "uPresent" :
            null;
 }
 

@@ -26,6 +26,8 @@
 var exec = require("child_process").exec;
 var config = require(process.cwd() + "/config.js");
 
+var chopExtension = require("../chopExtension.js");
+
 module.exports.extension = "tex";
 
 function getLastName() {
@@ -51,11 +53,6 @@ module.exports.defaultText = function(name, cls) {
         "\\makeworkscited\n" +
         "\n" +
         "\\end{document}\n";
-}
-
-function chopExtension(filename) {
-    var parts = filename.split(".");
-    return parts.slice(0, -1)[0];
 }
 
 module.exports.print = function(file) {

@@ -27,9 +27,13 @@
 var fs = require("fs");
 var child_process = require("child_process");
 
+var printHTML = require("../printHTML.js");
+var pdfHTML = require("../pdfHTML.js");
+var chopExtension = require("../chopExtension.js");
+
 module.exports.extension = "up";
 
-module.exports.defaultValue = function(name, cls) {
+module.exports.defaultText = function(name, cls) {
     return name + "\n" +
            "\n" +
            "theme: Modern Dark\n" +
