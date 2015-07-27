@@ -32,11 +32,9 @@ module.exports = function(file, callback, carg) {
     fs.readFile(file, function(err, data) {
         if(err) throw err;
 
-        child_process.exec("up "+file, function(err, stdout, stderr) {
+        child_process.exec("up -m "+file, function(err, stdout, stderr) {
             callback(stdout, carg);
         });
-        data = marked(data.toString());
-
     });
 }
 

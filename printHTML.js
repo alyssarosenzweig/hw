@@ -29,6 +29,8 @@
 
 
 var http = require("http");
+var config = require(__dirname + "/config.js");
+var exec = require("child_process").exec;
 
 module.exports = function(html) {
     // open a temporary web server
