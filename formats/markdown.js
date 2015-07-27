@@ -1,3 +1,9 @@
+var fs = require("fs");
+var marked = require("marked");
+
+var printHTML = require("../printHTML.js");
+var pdfHTML = require("../pdfHTML.js");
+
 module.exports.extension = "md";
 
 module.exports.defaultText = function(name, cls) {
@@ -24,3 +30,28 @@ module.exports.defaultText = function(name, cls) {
 
     return defaultText;
 };
+
+function compileMarkdown(file, callback, carg) {
+    fs.readFile(file, function(err, data) {
+        if(err) throw err;
+
+        data = marked(data.toString());
+
+        fs.readFile("template.html", function(err, template) {
+            if(err) throw err;
+            
+            var html = template.toString()
+                      .replace("%%%CONTENTHERE%%%", data);
+            
+            callback(html, carg);
+        });
+    });
+}
+
+module.exports.print = function(file, pdf) {
+    compileMarkdown(
+        file,
+        pdf ? pdfHTML : printHTML,
+        pdf ? chopExtension(file) + ".pdf" : ""
+    );
+}

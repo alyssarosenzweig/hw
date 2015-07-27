@@ -32,10 +32,7 @@ var argv = require("minimist")(process.argv.slice(2));
 var command = argv._[0];
 var config = require(__dirname + "/config.js");
 
-var compileMarkdown = require("./compileMarkdown.js");
 var compileUPresent = require("./compileUPresent.js");
-var printHTML = require("./printHTML.js");
-var pdfHTML = require("./pdfHTML.js");
 
 var spawn = require("child_process").spawn;
 var exec = require("child_process").exec;
@@ -79,7 +76,7 @@ function init() {
     });
 }
 
-function addFile(name, cls, format) {
+function getDescriptor(format) {
     var formatDescriptor = require("./formats/"+format); // NOTE: this is not a secure call,
                                                         // nor is it intended to be
                                                         // hw expects its input to be trusted
@@ -88,14 +85,18 @@ function addFile(name, cls, format) {
         throw new Error();
     }
 
+    return formatDescriptor;    
+}
+
+function addFile(name, cls, format) {
     var filename = name.replace(/ /g, "_")
                  + formatDescriptor.extension;
-    
+   
+    var formatDescriptor = getDescriptor(format); 
     var defaultText = formatDescriptor.defaultText(name, cls);
 
     fs.writeFile(filename, defaultText, function() {
         var editor = spawn("vim", [filename], {stdio: "inherit"}); // launch the only editor here
-        
         editor.on("exit", function() {
             // we should update the status file
             
@@ -141,10 +142,6 @@ function chopExtension(filename) {
     return parts.slice(0, -1)[0];
 }
 
-function printLatex(file) {
-    exec("latex " + file + " && dvipdf " + (chopExtension(file) + ".dvi"));
-}
-
 function print(file, latest, pdf) {
     if(latest) {
         // instead of using a filename, find the most recent homework assignment
@@ -155,28 +152,7 @@ function print(file, latest, pdf) {
     }
 
     var format = inferFormat(file);
-    
-    if(format == "markdown") {
-        compileMarkdown(
-                file,
-                pdf ? pdfHTML : printHTML,
-                pdf ? chopExtension(file) + ".pdf" : ""
-           );
-    } else if(format == "latex") {
-        printLatex(file);
-    } else if(format == "upresent") {
-       // printing a uPresent file doesn't make a whole lot of sense,
-       // but it might be useful at some point,
-       // so it's supported, just for the sake of completeness
-       
-        compileUPresent(
-                file,
-                pdf ? pdfHTML : printHTML,
-                pdf ? chopExtension(file) + ".pdf" : ""
-            );
-    } else {
-        console.error("Cannot print format "+format);
-    }
+    getDescriptor(format).print(file, pdf);
 }
 
 function usage() {

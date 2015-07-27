@@ -24,3 +24,7 @@ module.exports.defaultValue = function(name, cls) {
         "\n" +
         "\\end{document}\n";
 }
+
+module.exports.print = function(file) {
+    exec("latex " + file + " && dvipdf " + (chopExtension(file) + ".dvi"));
+}
