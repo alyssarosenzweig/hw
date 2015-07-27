@@ -33,6 +33,7 @@ var command = argv._[0];
 var config = require(__dirname + "/config.js");
 
 var compileMarkdown = require("./compileMarkdown.js");
+var compileUPresent = require("./compileUPresent.js");
 var printHTML = require("./printHTML.js");
 var pdfHTML = require("./pdfHTML.js");
 
@@ -185,6 +186,7 @@ function inferFormat(filename) {
 
     return (ext == "md" || ext == "markdown") ? "markdown" :
            (ext == "tex") ? "latex" :
+           (ext == "up") ? "upresent" :
            null;
 }
 
@@ -216,6 +218,16 @@ function print(file, latest, pdf) {
            );
     } else if(format == "latex") {
         printLatex(file);
+    } else if(format == "upresent") {
+       // printing a uPresent file doesn't make a whole lot fo sense,
+       // but it might be useful at some point,
+       // so it's supported, just for the sake of completeness
+       
+        compileUPresent(
+                file,
+                pdf ? pdfHTML : printHTML,
+                pdf ? chopExtension(file) + ".pdf" : ""
+            );
     } else {
         console.error("Cannot print format "+format);
     }
