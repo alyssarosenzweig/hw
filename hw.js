@@ -30,7 +30,24 @@ var http = require("http");
 var argv = require("minimist")(process.argv.slice(2));
 
 var command = argv._[0];
-var config = require(process.cwd() + "/config.js");
+
+// import configuration file conditionally
+
+var config;
+
+try {
+    config = require(process.cwd() + "/config.js");
+} catch(e) {
+    // if this is init command, that's fine :)
+    // if not, the user borked something. or us. probably the user ^^
+    
+    if(command != "init") {
+        console.error("The configuration file could not be loaded.");
+        console.error("Did you use `hw init` first?");
+        console.error("If so, this is a bug. https://github.com/bobbybee/hw/issues/new");
+        process.exit(1);
+    }
+}
 
 var exec = require("child_process").exec;
 var spawn = require("child_process").spawn;
