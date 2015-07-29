@@ -32,7 +32,14 @@ var chopExtension = require("../chopExtension.js");
 
 var config = require(process.cwd() + "/config.js");
 
+// the extension of every markdown file should be .md
+// declare that here
+
 module.exports.extension = "md";
+
+// when a new markdown document is created, a special header is added by default
+// that header is created here from the document name and class name,
+// and returned to be injected into the new document
 
 module.exports.defaultText = function(name, cls) {
     // table header
@@ -59,6 +66,9 @@ module.exports.defaultText = function(name, cls) {
     return defaultText;
 };
 
+// compileMarkdown is an internally used function for compiling markdown to HTML
+// this is essential for rendering the document
+
 function compileMarkdown(file, callback, carg) {
     fs.readFile(file, function(err, data) {
         if(err) throw err;
@@ -75,6 +85,11 @@ function compileMarkdown(file, callback, carg) {
         });
     });
 }
+
+// prints the markdown document:
+// the idea is to compile markdown to HTML,
+// and then send the HTML to the hw module for printing or rasterizing HTML,
+// depending on whether a paper print or a PDF is requested
 
 module.exports.print = function(file, pdf) {
     compileMarkdown(
