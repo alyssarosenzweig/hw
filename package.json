@@ -1,7 +1,7 @@
 {
   "name": "hw",
   "version": "1.0.0",
-  "description": "Homework for a pre-university hacker",
+  "description": "A homework toolkit for hackers",
   "main": "hw.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
