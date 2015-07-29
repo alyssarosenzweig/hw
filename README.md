@@ -23,11 +23,13 @@ Below is a listing of a few common tasks you might use hw for.
 ## New Assignment
 
     $ hw add Title
+    or
     $ hw add "--class=Math class" --format=latex "Assignment Title"
 
 ## Print an Assignment
 
     $ hw print --latest
+    or
     $ hw print --pdf Assignment_Title.tex
 
 ## Take notes in class
