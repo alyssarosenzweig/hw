@@ -30,6 +30,10 @@ Below is a listing of a few common tasks you might use hw for.
     $ hw print --latest
     $ hw print --pdf Assignment_Title.tex
 
+## Take notes in class
+
+    $ hw note "Mitochrondial DNA"
+
 ## Push to remote server
 
     $ git push origin master
