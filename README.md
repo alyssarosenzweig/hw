@@ -54,3 +54,11 @@ The default format for new documents, if the `--format` option isn't specified. 
 
 ## `noteFormat`
 The default format for notes. Similar to `defaultFormat`, but only used when the `note` command is invoked. I like Markdown for this kind of thing, but to each their own.
+
+# Document formats
+Documents in `hw` have a format; some common values might be "markdown", "latex", or "uPresent". Each format specifies the default boilerplate code created with `hw add`, as well as code to print the document and rasterize it to a PDF. While `hw` tries to have some reasonable formats predefined, it's easy to modify the existing formats as well as define new formats.
+
+## Structure of formats
+Each format is a node module in the `formats/` directory of the source tree. This module contains some metadata about the format, as well as a variety of functions to perform various operations. Additionally, in order for the format file to be used with `hw`, an entry needs to be made in `formats/index.js` mapping the file extension to the format name. The format name also needs to be identical to the filename of the format module (minus the `.js` extension).
+
+See the source code of `formats/markdown.js` to get a sense of how to write your own module. The API is fairly straightforward and well commented :)
