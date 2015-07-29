@@ -71,3 +71,11 @@ Documents in `hw` have a format; some common values might be "markdown", "latex"
 Each format is a node module in the `formats/` directory of the source tree. This module contains some metadata about the format, as well as a variety of functions to perform various operations. Additionally, in order for the format file to be used with `hw`, an entry needs to be made in `formats/index.js` mapping the file extension to the format name. The format name also needs to be identical to the filename of the format module (minus the `.js` extension).
 
 See the source code of `formats/markdown.js` to get a sense of how to write your own module. The API is fairly straightforward and well commented :)
+
+# Acknowledgements
+
+`hw` is a small tool that doesn't do a whole lot by itself. None of this wouldn't be possible if countless other hackers hadn't come before me with the same dream. Thank you to the authors of vim, git, markdown, LaTeX, fbterm, tmux, and the Linux kernel. I'd like to make a note on the last three items on the list: it's pretty awesome that I can my computer without a GUI at all! If these free software packages had not been developed, I'd be working with a proprietary word processor under a surveilled file sharing system with a bloated, walled-garden system and stacking windows.
+
+I've released `hw` as free software under the GPL in the hopes that I can carry on the tradition of openness, sharing, and just the general hacker spirit.
+
+If you've managed to read through all of this, you're awesome, too! <3
