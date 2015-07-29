@@ -31,6 +31,16 @@ var argv = require("minimist")(process.argv.slice(2));
 
 var command = argv._[0];
 
+var exec = require("child_process").exec;
+var spawn = require("child_process").spawn;
+
+var formats = require("./formats/index.js");
+
+if(!command) {
+    usage();
+    process.exit(0);
+}
+
 // import configuration file conditionally
 
 var config;
@@ -47,16 +57,6 @@ try {
         console.error("If so, this is a bug. https://github.com/bobbybee/hw/issues/new");
         process.exit(1);
     }
-}
-
-var exec = require("child_process").exec;
-var spawn = require("child_process").spawn;
-
-var formats = require("./formats/index.js");
-
-if(!command) {
-    usage();
-    process.exit(0);
 }
 
 if(command == "add") {
