@@ -43,14 +43,14 @@ if(!command) {
 }
 
 if(command == "add") {
-    addFile(argv._[argv._.length-1], argv["class"] || argv.c || "Class 8", argv.format || argv.defaultFormat || "markdown"); 
+    addFile(argv._[argv._.length-1], argv["class"] || argv.c || "Class 8", argv.format || config.defaultFormat || "markdown"); 
 } else if(command == "note") {
     // note is a shorthand for adding a new file,
     // but is specifically for small assignments that need to *just work*
     // they're not meant to be printed or anything,
     // and are generally for using your computer as a 'dumb terminal' in class
     
-    addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", argv.noteFormat || "markdown");
+    addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", config.noteFormat || "markdown");
 } else if(command == "print") {
     print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
 } else if(command == "init") {
