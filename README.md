@@ -50,6 +50,9 @@ A JavaScript function that returns the current date as a string. Year-Month-Day?
 ## `browser`
 Your preferred browser, used for printing HTML. This should be the 'command-line accessable name'. That is, you should be able to type `BROWSER http://duckduckgo.com` at the command line, where BROWSER is this option, and DuckDuck Go's homepage should open.
 
+## `editor`
+When a new document is created or a note taking session starts, an editor of the user's choice pops up. Disclaimer: if this field is set to emacs, `hw` may spontaneously combust.
+
 ## `useGit`
 A simple boolean value of whether hw should use git. The answer is true, by the way ;)
 

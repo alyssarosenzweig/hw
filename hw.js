@@ -97,7 +97,10 @@ function addFile(name, cls, format) {
     var defaultText = formatDescriptor.defaultText(name, cls);
 
     fs.writeFile(filename, defaultText, function() {
-        var editor = spawn("vim", [filename], {stdio: "inherit"}); // launch the only editor here
+        // spawn an editor of the user's choice
+        // hopefully that choice is vim ;)
+        
+        var editor = spawn(config.editor || "vim", [filename], {stdio: "inherit"});
         editor.on("exit", function() {
             // we should update the status file
             
