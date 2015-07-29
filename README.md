@@ -33,3 +33,24 @@ Below is a listing of a few common tasks you might use hw for.
 ## Push to remote server
 
     $ git push origin master
+
+# config.js
+When you `init` a new hw repo, a file called `config.js` is created by default containing your personal preferences. In the nature of a true hacker configuration file, this is executable code and is dynamically `require`d by `hw` itself. Here's a quick reference of its options:
+
+## `name`
+Your full name, used in the headers of new documents.
+
+## `getDate`
+A JavaScript function that returns the current date as a string. Year-Month-Day? Month/Day/Year? Day/Month/Year? Banana/Orange/Strawberry? This is used for document headers.
+
+## `browser`
+Your preferred browser, used for printing HTML. This should be the 'command-line accessable name'. That is, you should be able to type `BROWSER http://duckduckgo.com` at the command line, where BROWSER is this option, and DuckDuck Go's homepage should open.
+
+## `useGit`
+A simple boolean value of whether hw should use git. The answer is true, by the way ;)
+
+## `defaultFormat`
+The default format for new documents, if the `--format` option isn't specified. Setting this appropriately should save some typing..
+
+## `noteFormat`
+The default format for notes. Similar to `defaultFormat`, but only used when the `note` command is invoked. I like Markdown for this kind of thing, but to each their own.
