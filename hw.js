@@ -78,7 +78,7 @@ if(command == "add") {
 
 function init() {
     // initialize git and the status file
-    exec("git init . && echo '{}' > status.json && mkdir node_modules");
+    exec("git init . && echo '{}' > status.json");
 
     // copy the template file and my config file
     
@@ -89,7 +89,7 @@ function init() {
     
     fs.readFile(__dirname + "/config.js", function(err, data) {
         if(err) throw err;
-        fs.writeFile("node_modules/config.js", data);
+        fs.writeFile("config.js", data);
     });
 }
 
