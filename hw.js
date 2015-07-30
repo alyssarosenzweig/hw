@@ -47,33 +47,57 @@ var config;
 
 try {
     config = require(process.cwd() + "/config.js");
+    main();
 } catch(e) {
     // if this is init command, that's fine :)
-    // if not, the user borked something. or us. probably the user ^^
     
     if(command != "init") {
-        console.error("The configuration file could not be loaded.");
-        console.error("Did you use `hw init` first?");
-        console.error("If so, this is a bug. https://github.com/bobbybee/hw/issues/new");
-        process.exit(1);
+        // alright, perhaps there is a default hw instance somewhere else,
+        // and we can change dir there instead:
+        
+        function failMessage() {
+            console.error("The configuration file could not be loaded.");
+            console.error("Did you use `hw init` first?");
+            console.error("If so, this is a bug. https://github.com/bobbybee/hw/issues/new");
+            process.exit(1);
+        }
+
+        fs.readFile("~/.hw_default", fuction(err, data) {
+            if(err) failMessage();
+            
+            // alright, let's change directories and try again
+            
+            process.chdir(data.toString());
+            
+            try {
+                config = require(process.cwd() + "/config.js");
+                main();
+            } catch(e) {
+                // our options are exhausted at this point :(
+                failMessage();
+            }
+        });
+
     }
 }
 
-if(command == "add") {
-    addFile(argv._[argv._.length-1], argv["class"] || argv.c || "Class 8", argv.format || config.defaultFormat || "markdown"); 
-} else if(command == "note") {
-    // note is a shorthand for adding a new file,
-    // but is specifically for small assignments that need to *just work*
-    // they're not meant to be printed or anything,
-    // and are generally for using your computer as a 'dumb terminal' in class
-    
-    addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", config.noteFormat || "markdown");
-} else if(command == "print") {
-    print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
-} else if(command == "init") {
-    init();
-} else {
-    usage();
+function main() {
+    if(command == "add") {
+        addFile(argv._[argv._.length-1], argv["class"] || argv.c || "Class 8", argv.format || config.defaultFormat || "markdown"); 
+    } else if(command == "note") {
+        // note is a shorthand for adding a new file,
+        // but is specifically for small assignments that need to *just work*
+        // they're not meant to be printed or anything,
+        // and are generally for using your computer as a 'dumb terminal' in class
+        
+        addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", config.noteFormat || "markdown");
+    } else if(command == "print") {
+        print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
+    } else if(command == "init") {
+        init();
+    } else {
+        usage();
+    }
 }
 
 function init() {
@@ -89,8 +113,14 @@ function init() {
     
     fs.readFile(__dirname + "/config.js", function(err, data) {
         if(err) throw err;
-        fs.writeFile("config.js", data);
-    });
+    fs.writeFile("config.js", data);
+});
+
+    // setup the global pointer to this hw instance
+    // this lets the user use hw from any directory,
+    // abstracting away the ugly cd's
+    
+    fs.writeFile("~/.hw_default", process.cwd());
 }
 
 function getDescriptor(format) {
