@@ -8,5 +8,9 @@ module.exports = {
     editor: "vim",
     useGit: true,
     defaultFormat: "markdown",
-    noteFormat: "markdown"
+    noteFormat: "markdown",
+    getFileDirectory: function(filename, name, cls, format) {
+        // put directory creation code here...
+        return filename;
+    }
 }
