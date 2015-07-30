@@ -62,12 +62,20 @@ try {
             process.exit(1);
         }
 
-        fs.readFile("~/.hw_default", fuction(err, data) {
-            if(err) failMessage();
+        fs.readFile(process.env["HOME"]+"/.hw_default", function(err, data) {
+            if(err) {
+                throw err;
+                failMessage();
+            }
+
+            console.log(data);
+            console.log(data.toString()); 
             
             // alright, let's change directories and try again
-            
             process.chdir(data.toString());
+
+            console.log("CWD: "+process.cwd());
+            process.exit(0);
             
             try {
                 config = require(process.cwd() + "/config.js");
@@ -77,7 +85,6 @@ try {
                 failMessage();
             }
         });
-
     }
 }
 
@@ -120,7 +127,7 @@ function init() {
     // this lets the user use hw from any directory,
     // abstracting away the ugly cd's
     
-    fs.writeFile("~/.hw_default", process.cwd());
+    fs.writeFile(process.env["HOME"] + "/.hw_default", process.cwd());
 }
 
 function getDescriptor(format) {
@@ -151,14 +158,14 @@ function addFile(name, cls, format) {
         editor.on("exit", function() {
             // we should update the status file
             
-            fs.readFile("./status.json", function(err, data) {
+            fs.readFile(process.cwd()+"/status.json", function(err, data) {
                 if(err) throw err;
                 var status = JSON.parse(data);
                 
                 status.latestHW = filename;
 
-                fs.writeFile("./status.json", JSON.stringify(status));
-            });
+                fs.writeFile(process.cwd()+"/status.json", JSON.stringify(status));
+            })
 
             // now we need to commit to git
             // if desired
@@ -171,7 +178,7 @@ function addFile(name, cls, format) {
 }
 
 function getLatest(callback) {
-    fs.readFile("./status.json", function(err, data) {
+    fs.readFile(process.cwd()+"/status.json", function(err, data) {
         if(err) throw err;
 
         callback(JSON.parse(data).latestHW);
