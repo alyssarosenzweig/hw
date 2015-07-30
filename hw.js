@@ -152,6 +152,12 @@ function addFile(name, cls, format) {
     
     var filename = name.replace(/ /g, "_")
                  + "." + formatDescriptor.extension;
+
+    // call configuration function for location
+    filename =  (
+            config.getFileDirectory &&
+            config.getFileDirectory(filename, name, cls, format)
+    ) || filename;
    
     var defaultText = formatDescriptor.defaultText(name, cls);
 

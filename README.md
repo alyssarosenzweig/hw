@@ -64,6 +64,9 @@ The default format for new documents, if the `--format` option isn't specified. 
 ## `noteFormat`
 The default format for notes. Similar to `defaultFormat`, but only used when the `note` command is invoked. I like Markdown for this kind of thing, but to each their own.
 
+## `getFileDirectory`
+A function to determine the relative path of a new a file. At a minimum, just return `filename` to put all new assignments in the current working directory. Most people, however, will have their own preferences for naming conventions and directory locations. This can be implemented in this function. See the default configuration file for the function signature.
+
 # Document formats
 Documents in `hw` have a format; some common values might be "markdown", "latex", or "uPresent". Each format specifies the default boilerplate code created with `hw add`, as well as code to print the document and rasterize it to a PDF. While `hw` tries to have some reasonable formats predefined, it's easy to modify the existing formats as well as define new formats.
 
