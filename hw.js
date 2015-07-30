@@ -102,7 +102,7 @@ function main() {
         // they're not meant to be printed or anything,
         // and are generally for using your computer as a 'dumb terminal' in class
         
-        addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", config.noteFormat || "markdown");
+        addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", argv.format || config.noteFormat || "markdown");
     } else if(command == "print") {
         print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
     } else if(command == "init") {

@@ -42,12 +42,19 @@ function compilePlaintext(file, callback, carg) {
         if(err) throw err;
 
         // escape everything
-        var html = data.split("\n").map(encodeURIComponent).join("<br/>");
+        var html = data
+                .toString()
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\n/g, "<br/>");
 
-        fs.readFile("template.html", function(err, template) {
+        fs.readFile(process.cwd() + "/template.html", function(err, template) {
             if(err) throw err;
 
-            callback(template.toString().replace("%%%CONTENTHERE%%%",  html));
+            callback(template.toString().replace("%%%CONTENTHERE%%%",  html), carg);
         });
     });
 }
