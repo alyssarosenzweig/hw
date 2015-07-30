@@ -62,21 +62,26 @@ try {
             process.exit(1);
         }
 
+        console.log("Searching "+process.env["HOME"]+"/.hw_default");
+
         fs.readFile(process.env["HOME"]+"/.hw_default", function(err, data) {
             if(err) {
                 throw err;
                 failMessage();
             }
-
-            console.log(data);
-            console.log(data.toString()); 
             
+
+            var n = data.toString().trim();
+
             // alright, let's change directories and try again
-            process.chdir(data.toString());
+            try {
+                process.chdir(n);
+            } catch(e) {
+                console.error(e);
+                console.warn(process.cwd());
+                failMessage();
+            }
 
-            console.log("CWD: "+process.cwd());
-            process.exit(0);
-            
             try {
                 config = require(process.cwd() + "/config.js");
                 main();
