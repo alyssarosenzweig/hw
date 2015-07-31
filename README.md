@@ -34,7 +34,7 @@ Below is a listing of a few common tasks you might use hw for.
 
 ## Take notes in class
 
-    $ hw note "Mitochrondial DNA"
+    $ hw note "Mitochondrial DNA"
 
 ## Push to remote server
 
