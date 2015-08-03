@@ -28,5 +28,6 @@
 module.exports = {
     "tex": "latex",
     "up": "uPresent",
-    "md": "markdown"
+    "md": "markdown",
+    "txt": "plaintext"
 };
