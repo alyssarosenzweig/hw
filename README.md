@@ -3,7 +3,7 @@ _A homework toolkit for hackers_
 
 hw is a toolkit for managing your homework as a hacker, in the true sense of the word: someone who wants total control over every aspect of their life for whatever reason, and is willing to write plenty of code to do this. hw follows this philosophy. It's a teensy program that's designed to integrate well out of the box with open technologies like git, markdown, and LaTeX. And for when you need a new feature supported, the codebase is easy to hack on.
 
-hw is how I'm slowly replacing monoliths like Google Drive and LibreOffice with lightweight hackable tools like git and vim. Join me on my journey :)
+hw is how I'm slowly replacing monoliths like Google Drive with lightweight hackable tools like git and vim. Join me on my journey :)
 
 # Usage
 Below is a listing of a few common tasks you might use hw for.
@@ -47,13 +47,13 @@ When you `init` a new hw repo, a file called `config.js` is created by default c
 Your full name, used in the headers of new documents.
 
 ## `getDate`
-A JavaScript function that returns the current date as a string. Year-Month-Day? Month/Day/Year? Day/Month/Year? Banana/Orange/Strawberry? This is used for document headers.
+A JavaScript function that returns the current date as a string. Year-Month-Day? Month/Day/Year? Day/Month/Year? Banana/Orange/Strawberry? You decide :-) This is used for document headers.
 
 ## `browser`
 Your preferred browser, used for printing HTML. This should be the 'command-line accessable name'. That is, you should be able to type `BROWSER http://duckduckgo.com` at the command line, where BROWSER is this option, and DuckDuck Go's homepage should open.
 
 ## `editor`
-When a new document is created or a note taking session starts, an editor of the user's choice pops up. Disclaimer: if this field is set to emacs, `hw` may spontaneously combust.
+When a new (text-only) document is created or a note taking session starts, an editor of the user's choice pops up. Disclaimer: if this field is set to emacs, `hw` may spontaneously combust.
 
 ## `useGit`
 A simple boolean value of whether hw should use git. The answer is true, by the way ;)
