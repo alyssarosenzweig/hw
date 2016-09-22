@@ -75,6 +75,9 @@ Each format is a node module in the `formats/` directory of the source tree. Thi
 
 See the source code of `formats/markdown.js` to get a sense of how to write your own module. The API is fairly straightforward and well commented :)
 
+# LibreOffice integration
+LibreOffice is integrated optionally to allow tracking odt documents. This is not an ideal, because LibreOffice is a massive, primarily GUI tool that doesn't let me use vim :-( That being said, it might be useful for some people, and after all it's an optional dependency :-) Use format type `odt` for this. 
+
 # Acknowledgements
 
 `hw` is a small tool that doesn't do a whole lot by itself. None of this wouldn't be possible if countless other hackers hadn't come before me with the same dream. Thank you to the authors of vim, git, markdown, LaTeX, fbterm, tmux, and the Linux kernel. I'd like to make a note on the last three items on the list: it's pretty awesome that I can use my computer without a GUI at all! If these free software packages had not been developed, I'd be working with a proprietary word processor under a surveilled file sharing system with a bloated, walled-garden system and stacking windows.
