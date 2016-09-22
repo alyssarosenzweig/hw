@@ -21,7 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  * Electronic Mail Address:
- * alyssa.a.rosenzweig@gmail.com
+ * alyssa@rosenzweig.io
  *
  */
 
@@ -125,8 +125,8 @@ function init() {
     
     fs.readFile(__dirname + "/config.js", function(err, data) {
         if(err) throw err;
-    fs.writeFile("config.js", data);
-});
+        fs.writeFile("config.js", data);
+    });
 
     // setup the global pointer to this hw instance
     // this lets the user use hw from any directory,
@@ -162,10 +162,17 @@ function addFile(name, cls, format) {
     var defaultText = formatDescriptor.defaultText(name, cls);
 
     fs.writeFile(filename, defaultText, function() {
-        // spawn an editor of the user's choice
-        // hopefully that choice is vim ;)
-        
-        var editor = spawn(config.editor || "vim", [filename], {stdio: "inherit"});
+        // spawn an editor of the user's choice (hopefully vim :-) )
+        // however, if the file format requires a particular editor,
+        // it's necessary to launch that instead
+        // (E.g.: creating an odt mandates opening libreoffice)
+
+        var editor = spawn(
+                formatDescriptor.overrideEditor || config.editor || "vim",
+                [filename],
+                {stdio: "inherit"}
+            );
+
         editor.on("exit", function() {
             // we should update the status file
             
