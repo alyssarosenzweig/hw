@@ -1,8 +1,8 @@
 /*
- * hw.js - formats/index.js
+ * hw.js - formats/odt.js
  *
  * A homework toolkit for hackers 
- * Copyright (C) 2015 Alyssa Rosenzweig
+ * Copyright (C) 2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,16 +19,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  * Electronic Mail Address:
- * alyssa.a.rosenzweig@gmail.com
+ * alyssa@rosenzweig.io
  *
- * this file maps file extensions to filetypes
- * if you add a new filetype, you must update this index appropriately
  */
 
-module.exports = {
-    "tex": "latex",
-    "up": "uPresent",
-    "md": "markdown",
-    "txt": "plaintext",
-    "odt": "odt"
-};
+var exec = require("child_process").exec;
+var config = require(process.cwd() + "/config.js");
+
+var chopExtension = require("../chopExtension.js");
+
+module.exports.extension = "odt";
+
+/* odt is a complex, binary-only format
+ * a headless soffice instance would be necessary for sane defaults */
+
+module.exports.overrideEditor = "soffice";
+
+module.exports.defaultText = function(name, cls) {
+    return false;
+}
+
+/* To generate pdf's, we open a headless libreoffice instance,
+ * passing off the work of rendering complex documents.
+ */
+
+module.exports.print = function(file) {
+    exec("soffice --headless --convert-to pdf " + file);
+}
