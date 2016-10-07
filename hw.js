@@ -41,7 +41,7 @@ if(!command) {
     process.exit(0);
 }
 
-var config = require("./current-config.js");
+var config = require("./current-config.js")();
 
 main();
 
@@ -57,6 +57,8 @@ function main() {
         addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", argv.format || config.noteFormat || "markdown");
     } else if(command == "print") {
         print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
+    } else if(command == "publish") {
+        publish(argv._[argv._.length-1], argv.latest !== undefined);
     } else if(command == "init") {
         init();
     } else {
@@ -174,6 +176,32 @@ function print(file, latest, pdf) {
     getDescriptor(format).print(file, pdf);
 }
 
+function publish(file, latest) {
+    /* TODO: DRY */
+
+    if(latest) {
+        return getLatest(function(f) {
+            publish(f, false);
+        });
+    }
+    
+    /* print to pdf, the default publishable format.
+     * TODO: determine how to infer correct publish format.
+     * e.g.: markdown files can be published to HTML
+     */
+
+    var format = inferFormat(file);
+    getDescriptor(format).print(file, true);
+
+    /* the config file specifies how to publish a document as a shell cmd */
+    var pdf = file.split(".").slice(0, -1).join(".") + ".pdf";
+    var cmd = config.publish([pdf]);
+
+    exec(cmd, function(err, stdout) {
+        console.log(stdout);
+    });
+}
+
 function usage() {
     [
         "usage: hw command [options]",
@@ -185,6 +213,8 @@ function usage() {
         "   hw note [--class=classname] Subject",
         "print - prints an assignment. If --latest is used, filename is ignored.",
         "   hw print [--pdf] [--latest] filename",
+        "publish - publishes an assignment subject to config file",
+        "   hw publish [--latest] filename",
         "init - initializes a repository for hw tracking",
         "   hw init"
     ].forEach(function(a) { console.log(a) });
