@@ -2,7 +2,7 @@
  * hw.js - printHTML.js
  *
  * A homework toolkit for hackers 
- * Copyright (C) 2015 Alyssa Rosenzweig
+ * Copyright (C) 2015-2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
