@@ -2,8 +2,7 @@ module.exports = {
     name: "Alyssa Rosenzweig",
 
     getDate: function() {
-        var d = new Date();
-        return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        return (new Date()).toISOString().slice(4 + 1 + 2 + 1 + 2);
     },
 
     browser: "firefox",
