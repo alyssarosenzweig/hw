@@ -10,15 +10,11 @@ Below is a listing of a few common tasks you might use hw for.
 
 ## Install
 
-    $ git clone https://github.com/bobbybee/hw
-    $ cd hw
-    $ sudo npm install -g
+    $ git clone https://github.com/bobbybee/hw && cd hw && sudo npm install -g
 
 ## New Repo
 
-    $ mkdir hw_repo
-    $ cd hw_repo
-    $ hw init
+    $ mkdir hw_repo && cd hw_repo && hw init
 
 ## New Assignment
 
