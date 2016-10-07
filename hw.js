@@ -27,40 +27,54 @@
 
 var fs = require("fs");
 var http = require("http");
-var argv = require("minimist")(process.argv.slice(2));
-
-var command = argv._[0];
+var argv = require("minimist")(process.argv.slice(2), { boolean: true });
 
 var exec = require("child_process").exec;
 var spawn = require("child_process").spawn;
 
 var formats = require("./formats/index.js");
-
-if(!command) {
-    usage();
-    process.exit(0);
-}
-
 var config = require("./current-config.js")();
 
 main();
 
 function main() {
+    var command = argv._[0],
+        files   = argv._.slice(1);
+    
+    if(!command) {
+        usage();
+        process.exit(0);
+    }
+
+    if(files.length > 0) {
+        /* process files serially */
+        console.log(argv._);
+        files.forEach(function(file) {
+            singleFile(file, command);
+        });
+    } else {
+        if(command == "init") {
+            init();
+        } else {
+            usage();
+        }
+    }
+}
+
+function singleFile(file, command) {
     if(command == "add") {
-        addFile(argv._[argv._.length-1], argv["class"] || argv.c || "Class 8", argv.format || config.defaultFormat || "markdown"); 
+        addFile(file, argv["class"] || argv.c || "Class 8", argv.format || config.defaultFormat || "markdown"); 
     } else if(command == "note") {
         // note is a shorthand for adding a new file,
         // but is specifically for small assignments that need to *just work*
         // they're not meant to be printed or anything,
         // and are generally for using your computer as a 'dumb terminal' in class
         
-        addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", argv.format || config.noteFormat || "markdown");
+        addFile("Notes on " + file, argv["class"] || argv.c || "", argv.format || config.noteFormat || "markdown");
     } else if(command == "print") {
-        print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
+        print(file, argv.latest !== undefined, argv.pdf !== undefined);
     } else if(command == "publish") {
-        publish(argv._[argv._.length-1], argv.latest !== undefined);
-    } else if(command == "init") {
-        init();
+        publish(file, argv.latest !== undefined);
     } else {
         usage();
     }
