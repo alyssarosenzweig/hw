@@ -27,6 +27,8 @@
  * this is dependent on phantomjs!
  */
 
+var defaultConfig = require("./config.js");
+
 function failMessage() {
     console.error("The configuration file could not be loaded.");
     console.error("Did you use `hw init` first?");
@@ -37,7 +39,7 @@ function failMessage() {
 
 // import configuration file conditionally
 
-module.exports = function(command) {
+function importConfig(command) {
     try {
         return require(process.cwd() + "/config.js");
     } catch(e) {
@@ -77,4 +79,18 @@ module.exports = function(command) {
             return null;
         }
     }
+}
+
+/* merge the defaults with the user preferences as an override operation */
+
+function combineConfig(defaults, user) {
+    for(var preference in user) {
+        defaults[preference] = user[preference];
+    }
+    
+    return defaults;
+}
+
+module.exports = function(command) {
+    return combineConfig(defaultConfig, importConfig(command));
 }
