@@ -30,13 +30,18 @@ var chopExtension = require("../chopExtension.js");
 
 module.exports.extension = "odt";
 
-/* odt is a complex, binary-only format
- * a headless soffice instance would be necessary for sane defaults */
-
-module.exports.overrideEditor = "soffice";
-
+/* odt is a complex format and out of scope in hw
+ * LibreOffice integration is limited to publishing,
+ * and is just here for consistency.
+ * Document creation must be done from LibreOffice+git yourself ATM
+ * TODO: look into workarounds
+ */
+ 
 module.exports.defaultText = function(name, cls) {
-    return false;
+    console.error("LibreOffice documents must be created manually");
+    console.error("Save your document into your hw path, and enter: ");
+    console.error("$ git add [doc.odt] && git commit -a -m 'New doc'");
+    process.exit(1);
 }
 
 /* To generate pdf's, we open a headless libreoffice instance,
