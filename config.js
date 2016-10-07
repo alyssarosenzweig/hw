@@ -6,6 +6,7 @@ module.exports = {
     },
     browser: "firefox",
     editor: "vim",
+    phantomjs: "/usr/local/bin/phantomjs",
     useGit: true,
     defaultFormat: "markdown",
     noteFormat: "markdown",

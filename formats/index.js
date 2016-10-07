@@ -29,5 +29,6 @@ module.exports = {
     "tex": "latex",
     "up": "uPresent",
     "md": "markdown",
-    "txt": "plaintext"
+    "txt": "plaintext",
+    "odt": "odt"
 };

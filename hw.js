@@ -21,7 +21,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  * Electronic Mail Address:
- * alyssa.a.rosenzweig@gmail.com
+ * alyssa@rosenzweig.io
  *
  */
 
@@ -41,57 +41,9 @@ if(!command) {
     process.exit(0);
 }
 
-// import configuration file conditionally
+var config = require("./current-config.js");
 
-var config;
-
-try {
-    config = require(process.cwd() + "/config.js");
-    main();
-} catch(e) {
-    // if this is init command, that's fine :)
-    
-    if(command != "init") {
-        // alright, perhaps there is a default hw instance somewhere else,
-        // and we can change dir there instead:
-        
-        function failMessage() {
-            console.error("The configuration file could not be loaded.");
-            console.error("Did you use `hw init` first?");
-            console.error("If so, this is a bug. https://github.com/bobbybee/hw/issues/new");
-            process.exit(1);
-        }
-
-        console.log("Searching "+process.env["HOME"]+"/.hw_default");
-
-        fs.readFile(process.env["HOME"]+"/.hw_default", function(err, data) {
-            if(err) {
-                throw err;
-                failMessage();
-            }
-            
-
-            var n = data.toString().trim();
-
-            // alright, let's change directories and try again
-            try {
-                process.chdir(n);
-            } catch(e) {
-                console.error(e);
-                console.warn(process.cwd());
-                failMessage();
-            }
-
-            try {
-                config = require(process.cwd() + "/config.js");
-                main();
-            } catch(e) {
-                // our options are exhausted at this point :(
-                failMessage();
-            }
-        });
-    }
-}
+main();
 
 function main() {
     if(command == "add") {
@@ -125,8 +77,8 @@ function init() {
     
     fs.readFile(__dirname + "/config.js", function(err, data) {
         if(err) throw err;
-    fs.writeFile("config.js", data);
-});
+        fs.writeFile("config.js", data);
+    });
 
     // setup the global pointer to this hw instance
     // this lets the user use hw from any directory,
@@ -162,10 +114,16 @@ function addFile(name, cls, format) {
     var defaultText = formatDescriptor.defaultText(name, cls);
 
     fs.writeFile(filename, defaultText, function() {
-        // spawn an editor of the user's choice
-        // hopefully that choice is vim ;)
-        
-        var editor = spawn(config.editor || "vim", [filename], {stdio: "inherit"});
+        // spawn an editor of the user's choice (hopefully vim :-) )
+        // however, if the file format requires a particular editor,
+        // that is launched instead.
+
+        var editor = spawn(
+                formatDescriptor.overrideEditor || config.editor || "vim",
+                [filename],
+                {stdio: "inherit"}
+            );
+
         editor.on("exit", function() {
             // we should update the status file
             
