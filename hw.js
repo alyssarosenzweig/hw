@@ -46,7 +46,7 @@ function main() {
         process.exit(0);
     }
 
-    if(files.length > 0) {
+    if(files.length > 0 || argv.latest) {
         /* process files serially */
         files.forEach(function(file) {
             singleFile(file, command);
@@ -71,9 +71,9 @@ function singleFile(file, command) {
         
         addFile("Notes on " + file, argv["class"] || argv.c || "", argv.format || config.noteFormat || "markdown");
     } else if(command == "print") {
-        print(file, argv.latest !== undefined, argv.pdf !== undefined);
+        print(file, argv.latest, argv.pdf);
     } else if(command == "publish") {
-        publish(file, argv.latest !== undefined);
+        publish(file, argv.latest);
     } else {
         usage();
     }
