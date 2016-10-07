@@ -61,6 +61,9 @@ Your preferred browser, used for printing HTML. This should be the 'command-line
 ## `editor`
 When a new (text-only) document is created or a note taking session starts, an editor of the user's choice pops up. Disclaimer: if this field is set to emacs, `hw` may spontaneously combust.
 
+## `phantomjs`
+Path to the phantomjs binary, if it exists. Try `which phantomjs` at the shell and use that if you're unsure.
+
 ## `useGit`
 A simple boolean value of whether hw should use git. The answer is true, by the way ;)
 
@@ -72,6 +75,9 @@ The default format for notes. Similar to `defaultFormat`, but only used when the
 
 ## `getFileDirectory`
 A function to determine the relative path of a new a file. At a minimum, just return `filename` to put all new assignments in the current working directory. Most people, however, will have their own preferences for naming conventions and directory locations. This can be implemented in this function. See the default configuration file for the function signature.
+
+## `publish`
+A function returning a shell command to publish an assignment. See the default configuration file for the signature as well as a fairly typical example pushing to a webserver with `scp`.
 
 # Document formats
 Documents in `hw` have a format; some common values might be "markdown", "latex", or "uPresent". Each format specifies the default boilerplate code created with `hw add`, as well as code to print the document and rasterize it to a PDF. While `hw` tries to have some reasonable formats predefined, it's easy to modify the existing formats as well as define new formats.
