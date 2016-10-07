@@ -76,7 +76,7 @@ Each format is a node module in the `formats/` directory of the source tree. Thi
 See the source code of `formats/markdown.js` to get a sense of how to write your own module. The API is fairly straightforward and well commented :)
 
 # LibreOffice integration
-LibreOffice is integrated optionally to allow tracking odt documents. This is not an ideal, because LibreOffice is a massive, primarily GUI tool that doesn't let me use vim :-( That being said, it might be useful for some people, and after all it's an optional dependency :-) Use format type `odt` for this. 
+LibreOffice is partially integrated. In the current implementation, .odt documents can be tracked (as with any file) and support exporting (that is, printing, publishing, and pdf generation). However, they must be created and tracked in git manually. 
 
 # Acknowledgements
 
