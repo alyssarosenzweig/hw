@@ -57,6 +57,8 @@ function main() {
         addFile("Notes on " + argv._[argv._.length-1], argv["class"] || argv.c || "", argv.format || config.noteFormat || "markdown");
     } else if(command == "print") {
         print(argv._[argv._.length-1], argv.latest !== undefined, argv.pdf !== undefined);
+    } else if(command == "publish") {
+        publish(argv._[argv._.length-1], argv.latest !== undefined);
     } else if(command == "init") {
         init();
     } else {
@@ -172,6 +174,31 @@ function print(file, latest, pdf) {
 
     var format = inferFormat(file);
     getDescriptor(format).print(file, pdf);
+}
+
+function publish(file, latest) {
+    /* TODO: DRY */
+
+    if(latest) {
+        return getLatest(function(f) {
+            publish(f, false):
+        });
+    }
+    
+    /* print to pdf, the default publishable format.
+     * TODO: determine how to infer correct publish format.
+     * e.g.: markdown files can be published to HTML
+     */
+
+    var format = inferFormat(file);
+    getDescriptor(format).print(file, true);
+
+    /* the config file specifies how to publish a document as a shell cmd */
+    var pdf = file.split(".").slice(0, -1).join(".") + ".pdf";
+    var cmd = config.publish([pdf]);
+
+    /* TODO: do we need to catch stdout? */
+    exec(cmd);
 }
 
 function usage() {
