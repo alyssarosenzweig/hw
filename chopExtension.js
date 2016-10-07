@@ -19,7 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  * Electronic Mail Address:
- * alyssa.a.rosenzweig@gmail.com
+ * alyssa@rosenzweig.io
  *
  */
 
