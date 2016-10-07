@@ -19,7 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  * Electronic Mail Address:
- * alyssa.a.rosenzweig@gmail.com
+ * alyssa@rosenzweig.io
  *
  * pdfHTML.js inputs an HTML document,
  * and outputs a pdf version 
@@ -27,13 +27,12 @@
  * this is dependent on phantomjs!
  */
 
-
 module.exports = function(html, output) {
     var pdf = require("html-pdf");
 
     pdf.create(html, {
         format: 'Letter',
-        phantomPath: "/usr/bin/phantomjs",
+        phantomPath: require("./current-config.js").phantomjs
         border: "1in"
     }).toFile(output, function(err, res) {
         if(err) throw err;
