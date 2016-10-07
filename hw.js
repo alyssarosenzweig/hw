@@ -116,8 +116,7 @@ function addFile(name, cls, format) {
     fs.writeFile(filename, defaultText, function() {
         // spawn an editor of the user's choice (hopefully vim :-) )
         // however, if the file format requires a particular editor,
-        // it's necessary to launch that instead
-        // (E.g.: creating an odt mandates opening libreoffice)
+        // that is launched instead.
 
         var editor = spawn(
                 formatDescriptor.overrideEditor || config.editor || "vim",
