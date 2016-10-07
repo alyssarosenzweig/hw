@@ -1,5 +1,5 @@
 module.exports = {
-    name: "Alyssa Rosenzweig",
+    name: "First Last",
 
     getDate: function() {
         return (new Date()).toISOString().slice(4 + 1 + 2 + 1 + 2);
@@ -19,6 +19,6 @@ module.exports = {
 
     publishCommand: function(files) {
         return "scp " + files.join(" ") 
-                      + "alyssa@rosenzweig.io:/var/www/html/homework/";
+                      + "user@example.com:/var/www/html/homework/";
     }
 }
