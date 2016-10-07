@@ -32,6 +32,12 @@ Below is a listing of a few common tasks you might use hw for.
     or
     $ hw print --pdf Assignment_Title.tex
 
+## Publish
+    
+    $ hw publish --latest
+    or
+    $ hw publish Response_to_Mona_Lisa.md
+
 ## Take notes in class
 
     $ hw note "Mitochondrial DNA"

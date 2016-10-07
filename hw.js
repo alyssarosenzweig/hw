@@ -213,6 +213,8 @@ function usage() {
         "   hw note [--class=classname] Subject",
         "print - prints an assignment. If --latest is used, filename is ignored.",
         "   hw print [--pdf] [--latest] filename",
+        "publish - publishes an assignment subject to config file",
+        "   hw publish [--latest] filename",
         "init - initializes a repository for hw tracking",
         "   hw init"
     ].forEach(function(a) { console.log(a) });
