@@ -48,7 +48,6 @@ function main() {
 
     if(files.length > 0) {
         /* process files serially */
-        console.log(argv._);
         files.forEach(function(file) {
             singleFile(file, command);
         });
