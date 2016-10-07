@@ -32,7 +32,7 @@ module.exports = function(html, output) {
 
     pdf.create(html, {
         format: 'Letter',
-        phantomPath: require("./current-config.js").phantomjs
+        phantomPath: require("./current-config.js").phantomjs,
         border: "1in"
     }).toFile(output, function(err, res) {
         if(err) throw err;

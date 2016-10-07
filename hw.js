@@ -41,7 +41,7 @@ if(!command) {
     process.exit(0);
 }
 
-var config = require("./current-config.js");
+var config = require("./current-config.js")();
 
 main();
 
@@ -181,7 +181,7 @@ function publish(file, latest) {
 
     if(latest) {
         return getLatest(function(f) {
-            publish(f, false):
+            publish(f, false);
         });
     }
     
@@ -197,8 +197,9 @@ function publish(file, latest) {
     var pdf = file.split(".").slice(0, -1).join(".") + ".pdf";
     var cmd = config.publish([pdf]);
 
-    /* TODO: do we need to catch stdout? */
-    exec(cmd);
+    exec(cmd, function(err, stdout) {
+        console.log(stdout);
+    });
 }
 
 function usage() {
