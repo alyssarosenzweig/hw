@@ -1,7 +1,7 @@
 /*
  * hw.js - formats/odt.js
  *
- * A homework toolkit for hackers 
+ * A homework toolkit for hackers
  * Copyright (C) 2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
@@ -36,7 +36,7 @@ module.exports.extension = "odt";
  * Document creation must be done from LibreOffice+git yourself ATM
  * TODO: look into workarounds
  */
- 
+
 module.exports.defaultText = function(name, cls) {
     console.error("LibreOffice documents must be created manually");
     console.error("Save your document into your hw path, and enter: ");

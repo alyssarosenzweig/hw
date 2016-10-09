@@ -1,7 +1,7 @@
 /*
  * hw.js - pdfHTML.js
  *
- * A homework toolkit for hackers 
+ * A homework toolkit for hackers
  * Copyright (C) 2015-2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
@@ -22,7 +22,7 @@
  * alyssa@rosenzweig.io
  *
  * pdfHTML.js inputs an HTML document,
- * and outputs a pdf version 
+ * and outputs a pdf version
  * this is used for printing markdown
  * this is dependent on phantomjs!
  */

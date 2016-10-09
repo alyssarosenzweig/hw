@@ -1,7 +1,7 @@
 /*
  * hw.js - printHTML.js
  *
- * A homework toolkit for hackers 
+ * A homework toolkit for hackers
  * Copyright (C) 2015-2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
@@ -24,7 +24,7 @@
  * inputs an HTML document,
  * and opens it in a web browser for printing / rendering.
  * this is used for printing markdown
- * 
+ *
  */
 
 

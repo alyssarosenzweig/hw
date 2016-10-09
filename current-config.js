@@ -1,7 +1,7 @@
 /*
  * hw.js - pdfHTML.js
  *
- * A homework toolkit for hackers 
+ * A homework toolkit for hackers
  * Copyright (C) 2015-2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
@@ -22,7 +22,7 @@
  * alyssa@rosenzweig.io
  *
  * pdfHTML.js inputs an HTML document,
- * and outputs a pdf version 
+ * and outputs a pdf version
  * this is used for printing markdown
  * this is dependent on phantomjs!
  */
@@ -45,11 +45,11 @@ function importConfig(command) {
         return require(process.cwd() + "/config.js");
     } catch(e) {
         // if this is init command, that's fine :)
-        
+
         if(command != "init") {
             // alright, perhaps there is a default hw instance somewhere else,
             // and we can change dir there instead:
-            
+
             console.log("Searching "+process.env["HOME"]+"/.hw_default");
 
             fs.readFile(process.env["HOME"]+"/.hw_default", function(err, data) {
@@ -57,7 +57,7 @@ function importConfig(command) {
                     throw err;
                     failMessage();
                 }
-                
+
                 var n = data.toString().trim();
 
                 // alright, let's change directories and try again
@@ -88,7 +88,7 @@ function combineConfig(defaults, user) {
     for(var preference in user) {
         defaults[preference] = user[preference];
     }
-    
+
     return defaults;
 }
 
