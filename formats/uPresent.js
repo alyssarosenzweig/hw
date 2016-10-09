@@ -1,7 +1,7 @@
 /*
  * hw.js - formats/uPresent.js
  *
- * A homework toolkit for hackers 
+ * A homework toolkit for hackers
  * Copyright (C) 2015-2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
@@ -54,7 +54,7 @@ module.exports.print = function(file, pdf) {
     // printing a uPresent file doesn't make a whole lot of sense,
     // but it might be useful at some point,
     // so it's supported, just for the sake of completeness
-   
+
     compileUPresent(
         file,
         pdf ? pdfHTML : printHTML,

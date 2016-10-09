@@ -1,7 +1,7 @@
 /*
  * hw.js - formats/markdown.js
  *
- * A homework toolkit for hackers 
+ * A homework toolkit for hackers
  * Copyright (C) 2015-2016 Alyssa Rosenzweig
 
  * This program is free software; you can redistribute it and/or modify
@@ -77,10 +77,10 @@ function compileMarkdown(file, callback, carg) {
 
         fs.readFile("template.html", function(err, template) {
             if(err) throw err;
-            
+
             var html = template.toString()
                       .replace("%%%CONTENTHERE%%%", data);
-            
+
             callback(html, carg);
         });
     });

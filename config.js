@@ -18,7 +18,7 @@ module.exports = {
     },
 
     publishCommand: function(files) {
-        return "scp " + files.join(" ") 
+        return "scp " + files.join(" ")
                       + "user@example.com:/var/www/html/homework/";
     }
 }

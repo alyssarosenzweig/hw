@@ -30,7 +30,7 @@ Below is a listing of a few common tasks you might use hw for.
     $ hw print --pdf Assignment_Title.tex
 
 ## Publish
-    
+
     $ hw publish --latest
     or
     $ hw publish Response_to_Mona_Lisa.md
@@ -85,7 +85,7 @@ Each format is a node module in the `formats/` directory of the source tree. Thi
 See the source code of `formats/markdown.js` to get a sense of how to write your own module. The API is fairly straightforward and well commented :)
 
 # LibreOffice integration
-LibreOffice is partially integrated. In the current implementation, .odt documents can be tracked (as with any file) and support exporting (that is, printing, publishing, and pdf generation). However, they must be created and tracked in git manually. 
+LibreOffice is partially integrated. In the current implementation, .odt documents can be tracked (as with any file) and support exporting (that is, printing, publishing, and pdf generation). However, they must be created and tracked in git manually.
 
 # Acknowledgements
 
