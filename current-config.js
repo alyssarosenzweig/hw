@@ -27,6 +27,7 @@
  * this is dependent on phantomjs!
  */
 
+var fs = require("fs");
 var defaultConfig = require("./config.js");
 
 function failMessage() {
