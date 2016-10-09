@@ -5,12 +5,13 @@ hw is a toolkit for managing your homework as a hacker, in the true sense of the
 
 hw is how I'm slowly replacing monoliths like Google Drive with lightweight hackable tools like git and vim. Join me on my journey :)
 
+# Install
+hw requires node 0.10+ and git.
+
+    $ git clone https://github.com/bobbybee/hw && cd hw && npm install -g
+
 # Usage
 Below is a listing of a few common tasks you might use hw for.
-
-## Install
-
-    $ git clone https://github.com/bobbybee/hw && cd hw && sudo npm install -g
 
 ## New Repo
 
